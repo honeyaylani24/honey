@@ -39,7 +39,7 @@ const GlobalStyles = () => (
     @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap');
     
     body {
-      background-color: #fdf6f0;
+      background-color: #fff8f5;
       color: #3a3a3a;
       font-family: 'Poppins', sans-serif;
       overflow-x: hidden;
@@ -57,7 +57,7 @@ const GlobalStyles = () => (
     }
     
     .timeline-line {
-      background: linear-gradient(to bottom, #e8cfc1, #f3d1dc, #e8cfc1);
+      background: #d4a373;
     }
 
     @keyframes spin-slow {
@@ -105,10 +105,10 @@ const Countdown = () => {
     <div className="flex gap-4 md:gap-8 justify-center items-center py-8">
       {Object.entries(timeLeft).map(([label, value]) => (
         <div key={label} className="flex flex-col items-center">
-          <div className="glass w-16 h-16 md:w-20 md:h-20 flex items-center justify-center rounded-full mb-2">
-            <span className="text-xl md:text-2xl font-cinzel font-bold">{value}</span>
+          <div className="bg-white/10 backdrop-blur-md w-16 h-16 md:w-24 md:h-24 flex items-center justify-center rounded-2xl mb-2 border border-white/20 shadow-xl">
+            <span className="text-2xl md:text-4xl font-cinzel font-bold text-white drop-shadow-lg">{value}</span>
           </div>
-          <span className="text-xs uppercase tracking-widest opacity-60">{label}</span>
+          <span className="text-[10px] md:text-xs uppercase tracking-[0.2em] font-semibold text-[#FFD1DC]">{label}</span>
         </div>
       ))}
     </div>
@@ -154,7 +154,7 @@ const Envelope: React.FC<{ onOpen: () => void }> = ({ onOpen }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-[#fdf6f0] p-4">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-[#fff1eb] p-4">
       <motion.div 
         className="relative w-full max-w-lg aspect-[4/3] cursor-pointer"
         onClick={handleOpen}
@@ -163,7 +163,7 @@ const Envelope: React.FC<{ onOpen: () => void }> = ({ onOpen }) => {
         transition={{ duration: 1, ease: "easeOut" }}
       >
         {/* Envelope Back */}
-        <div className="absolute inset-0 bg-[#e8cfc1] rounded-lg shadow-2xl" />
+        <div className="absolute inset-0 bg-[#f8e1e7] rounded-lg shadow-2xl" />
         
         {/* Letter */}
         <motion.div 
@@ -171,13 +171,13 @@ const Envelope: React.FC<{ onOpen: () => void }> = ({ onOpen }) => {
           animate={isOpen ? { y: -150, opacity: 0 } : { y: 0 }}
           transition={{ duration: 1.2, delay: 0.5 }}
         >
-          <h2 className="font-vibes text-4xl md:text-6xl text-[#3a3a3a] mb-4">Apeksha & Gaurav</h2>
-          <p className="font-cinzel tracking-widest text-sm uppercase opacity-60">Wedding Invitation</p>
+          <h2 className="font-vibes text-4xl md:text-6xl text-[#4a4a4a] mb-4">Apeksha & Gaurav</h2>
+          <p className="font-cinzel tracking-widest text-sm uppercase opacity-60 text-[#4a4a4a]">Wedding Invitation</p>
         </motion.div>
 
         {/* Envelope Flap */}
         <motion.div 
-          className="absolute top-0 left-0 w-full h-1/2 bg-[#dcb8a6] origin-top z-10"
+          className="absolute top-0 left-0 w-full h-1/2 bg-[#f8e1e7] origin-top z-10"
           style={{ clipPath: "polygon(0 0, 100% 0, 50% 100%)" }}
           animate={isOpen ? { rotateX: 180, zIndex: 0 } : { rotateX: 0 }}
           transition={{ duration: 0.8 }}
@@ -186,14 +186,14 @@ const Envelope: React.FC<{ onOpen: () => void }> = ({ onOpen }) => {
         {/* Wax Seal */}
         {!isOpen && (
           <motion.div 
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-16 h-16 bg-[#b91c1c] rounded-full flex items-center justify-center shadow-lg border-4 border-[#991b1b]"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-16 h-16 bg-[#c9184a] rounded-full flex items-center justify-center shadow-lg border-4 border-[#a4133c]"
             whileHover={{ scale: 1.1 }}
           >
             <span className="font-vibes text-white text-2xl">AG</span>
           </motion.div>
         )}
         
-        <p className="absolute -bottom-12 left-1/2 -translate-x-1/2 font-cinzel text-xs tracking-[0.3em] uppercase opacity-40 animate-pulse">
+        <p className="absolute -bottom-12 left-1/2 -translate-x-1/2 font-cinzel text-xs tracking-[0.3em] uppercase opacity-40 animate-pulse text-[#4a4a4a]">
           Click to Open
         </p>
       </motion.div>
@@ -211,17 +211,17 @@ const TimelineItem = ({ date, events, index }: { date: string, events: { title: 
       transition={{ delay: index * 0.2 }}
     >
       <div className="absolute left-0 top-0 w-px h-full timeline-line" />
-      <div className="absolute left-[-8px] top-0 w-4 h-4 rounded-full bg-[#e8cfc1] border-2 border-white shadow-sm" />
+      <div className="absolute left-[-8px] top-0 w-4 h-4 rounded-full bg-[#d4a373] border-2 border-white shadow-sm" />
       
-      <h3 className="font-cinzel font-bold text-xl text-[#e8cfc1] mb-4 flex items-center gap-2">
+      <h3 className="font-cinzel font-bold text-xl text-[#d4a373] mb-4 flex items-center gap-2">
         <Calendar size={18} /> {date}
       </h3>
       
       <div className="space-y-6">
         {events.map((event, i) => (
-          <div key={i} className="glass p-4 rounded-2xl">
-            <h4 className="font-cinzel font-semibold text-lg">{event.title}</h4>
-            <p className="flex items-center gap-2 text-sm opacity-70 mt-1">
+          <div key={i} className="glass p-4 rounded-2xl border-white/40">
+            <h4 className="font-cinzel font-semibold text-lg text-[#3a3a3a]">{event.title}</h4>
+            <p className="flex items-center gap-2 text-sm opacity-70 mt-1 text-[#3a3a3a]">
               <Clock size={14} /> {event.time}
             </p>
           </div>
@@ -266,7 +266,8 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
       </button>
 
       {/* Hero Section */}
-      <section className="relative h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden">
+      <section className="relative h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden bg-[#fff8f5]">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#f8e1e7] to-[#f3d5c0] opacity-30" />
         <motion.img 
           src={LOGO_URL} 
           alt="Wedding Logo" 
@@ -287,7 +288,7 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
         />
         
         <motion.p 
-          className="font-cinzel text-xs md:text-sm tracking-[0.4em] uppercase mb-4 opacity-60"
+          className="font-cinzel text-xs md:text-sm tracking-[0.4em] uppercase mb-4 opacity-60 text-[#3a3a3a] z-10"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
@@ -296,7 +297,7 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
         </motion.p>
         
         <motion.h1 
-          className="font-cinzel text-3xl md:text-5xl font-bold mb-4 tracking-widest"
+          className="font-cinzel text-3xl md:text-5xl font-bold mb-4 tracking-widest text-[#3a3a3a] z-10"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7 }}
@@ -305,37 +306,46 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
         </motion.h1>
         
         <motion.div 
-          className="flex flex-col md:flex-row items-center gap-4 mb-8"
+          className="flex flex-col md:flex-row items-center gap-4 mb-8 z-10"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1 }}
         >
-          <span className="font-vibes text-6xl md:text-8xl text-[#e8cfc1]">Apeksha</span>
-          <Heart className="text-[#f3d1dc] fill-[#f3d1dc] animate-pulse" size={32} />
-          <span className="font-vibes text-6xl md:text-8xl text-[#e8cfc1]">Gaurav</span>
+          <span className="font-vibes text-6xl md:text-8xl text-[#d4a373]">Apeksha</span>
+          <Heart className="text-[#d4a373] fill-[#d4a373] animate-pulse" size={32} />
+          <span className="font-vibes text-6xl md:text-8xl text-[#d4a373]">Gaurav</span>
         </motion.div>
         
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
+          className="z-10"
         >
-          <p className="font-cinzel text-xl md:text-2xl tracking-widest mb-4">1 MAY 2026</p>
-          <Countdown />
+          <p className="font-cinzel text-xl md:text-2xl tracking-widest mb-4 text-[#3a3a3a]">1 MAY 2026</p>
         </motion.div>
         
         <motion.div 
-          className="absolute bottom-10 left-1/2 -translate-x-1/2"
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10"
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
-          <ChevronDown size={32} className="opacity-30" />
+          <ChevronDown size={32} className="opacity-30 text-[#3a3a3a]" />
         </motion.div>
       </section>
 
+      {/* Countdown Section */}
+      <section className="py-20 px-4 bg-[#D90166] relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#D90166] to-[#b00152] opacity-50" />
+        <div className="max-w-4xl mx-auto relative z-10 text-center">
+          <h2 className="font-cinzel text-2xl md:text-3xl mb-8 tracking-[0.3em] text-[#FFE4EC] uppercase">Counting Down to Forever</h2>
+          <Countdown />
+        </div>
+      </section>
+
       {/* Bride & Groom Section */}
-      <section className="py-24 px-4 max-w-6xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-16 md:gap-24">
+      <section className="py-24 px-4 bg-[#fdf6f0]">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 md:gap-24">
           {/* Bride */}
           <motion.div 
             className="text-center"
@@ -349,7 +359,7 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
               <motion.div 
                 className="absolute -inset-4 rounded-full"
                 style={{
-                  background: 'conic-gradient(from 0deg, transparent, #e8cfc1, #f3d1dc, #e8cfc1, transparent)',
+                  background: 'conic-gradient(from 0deg, transparent, #f3d1dc, #e8cfc1, #f3d1dc, transparent)',
                 }}
                 animate={{ rotate: 360 }}
                 transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
@@ -360,34 +370,34 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
                 alt="Bride" 
                 referrerPolicy="no-referrer"
                 loading="lazy"
-                className="relative w-64 h-64 md:w-80 md:h-80 object-cover rounded-full border-4 border-white shadow-2xl z-10"
+                className="relative w-64 h-64 md:w-80 md:h-80 object-cover rounded-full border-4 border-[#f3d1dc] shadow-2xl z-10"
               />
               <div className="absolute -bottom-4 -right-4 bg-white p-3 rounded-full shadow-lg z-20">
                 <Heart className="text-[#f3d1dc] fill-[#f3d1dc]" size={24} />
               </div>
             </div>
             
-            <h2 className="font-vibes text-6xl text-[#e8cfc1] mb-6">Apeksha</h2>
+            <h2 className="font-vibes text-6xl text-[#4a4a4a] mb-6">Apeksha</h2>
             
-            <div className="glass p-8 rounded-[2rem] space-y-4 border border-white/40">
+            <div className="bg-white p-8 rounded-[2rem] space-y-4 border border-[#f3d1dc] shadow-xl">
               <div className="space-y-1">
-                <p className="font-cinzel text-[10px] tracking-[0.2em] uppercase opacity-40">Granddaughter of</p>
-                <p className="font-cinzel text-sm font-semibold">Late Urmiladevi & Shyamsundar Khandelwal</p>
+                <p className="font-cinzel text-[10px] tracking-[0.2em] uppercase opacity-40 text-[#4a4a4a]">Granddaughter of</p>
+                <p className="font-cinzel text-sm font-semibold text-[#4a4a4a]">Late Urmiladevi & Shyamsundar Khandelwal</p>
               </div>
               
-              <div className="w-12 h-px bg-[#e8cfc1]/30 mx-auto" />
+              <div className="w-12 h-px bg-[#f3d1dc] mx-auto" />
               
               <div className="space-y-1">
-                <p className="font-cinzel text-[10px] tracking-[0.2em] uppercase opacity-40">Daughter of</p>
-                <p className="font-cinzel text-sm font-semibold">Jyoti & Jitendra Khandelwal</p>
+                <p className="font-cinzel text-[10px] tracking-[0.2em] uppercase opacity-40 text-[#4a4a4a]">Daughter of</p>
+                <p className="font-cinzel text-sm font-semibold text-[#4a4a4a]">Jyoti & Jitendra Khandelwal</p>
               </div>
 
-              <div className="w-12 h-px bg-[#e8cfc1]/30 mx-auto" />
+              <div className="w-12 h-px bg-[#f3d1dc] mx-auto" />
 
               <div className="space-y-1">
-                <p className="font-cinzel text-[10px] tracking-[0.2em] uppercase opacity-40">Maternal Side</p>
-                <p className="font-cinzel text-xs opacity-70">Ramanarayan, Sanjay, Sandeep</p>
-                <p className="font-cinzel text-[10px] opacity-40">(Sohagpur, MP)</p>
+                <p className="font-cinzel text-[10px] tracking-[0.2em] uppercase opacity-40 text-[#4a4a4a]">Maternal Side</p>
+                <p className="font-cinzel text-xs opacity-70 text-[#4a4a4a]">Ramanarayan, Sanjay, Sandeep</p>
+                <p className="font-cinzel text-[10px] opacity-40 text-[#4a4a4a]">(Sohagpur, MP)</p>
               </div>
             </div>
           </motion.div>
@@ -416,33 +426,33 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
                 alt="Groom" 
                 referrerPolicy="no-referrer"
                 loading="lazy"
-                className="relative w-64 h-64 md:w-80 md:h-80 object-cover rounded-full border-4 border-white shadow-2xl z-10"
+                className="relative w-64 h-64 md:w-80 md:h-80 object-cover rounded-full border-4 border-[#f3d1dc] shadow-2xl z-10"
               />
               <div className="absolute -bottom-4 -left-4 bg-white p-3 rounded-full shadow-lg z-20">
-                <Heart className="text-[#e8cfc1] fill-[#e8cfc1]" size={24} />
+                <Heart className="text-[#f3d1dc] fill-[#f3d1dc]" size={24} />
               </div>
             </div>
 
-            <h2 className="font-vibes text-6xl text-[#e8cfc1] mb-6">Gaurav</h2>
+            <h2 className="font-vibes text-6xl text-[#4a4a4a] mb-6">Gaurav</h2>
             
-            <div className="glass p-8 rounded-[2rem] space-y-4 border border-white/40">
+            <div className="bg-white p-8 rounded-[2rem] space-y-4 border border-[#f3d1dc] shadow-xl">
               <div className="space-y-1">
-                <p className="font-cinzel text-[10px] tracking-[0.2em] uppercase opacity-40">Grandson of</p>
-                <p className="font-cinzel text-sm font-semibold">Late Sharadadevi & Late Ramchandra Dangayach</p>
+                <p className="font-cinzel text-[10px] tracking-[0.2em] uppercase opacity-40 text-[#4a4a4a]">Grandson of</p>
+                <p className="font-cinzel text-sm font-semibold text-[#4a4a4a]">Late Sharadadevi & Late Ramchandra Dangayach</p>
               </div>
               
-              <div className="w-12 h-px bg-[#e8cfc1]/30 mx-auto" />
+              <div className="w-12 h-px bg-[#f3d1dc] mx-auto" />
               
               <div className="space-y-1">
-                <p className="font-cinzel text-[10px] tracking-[0.2em] uppercase opacity-40">Son of</p>
-                <p className="font-cinzel text-sm font-semibold">Anita & Manoj Kumar Dangayach</p>
+                <p className="font-cinzel text-[10px] tracking-[0.2em] uppercase opacity-40 text-[#4a4a4a]">Son of</p>
+                <p className="font-cinzel text-sm font-semibold text-[#4a4a4a]">Anita & Manoj Kumar Dangayach</p>
               </div>
 
-              <div className="w-12 h-px bg-[#e8cfc1]/30 mx-auto" />
+              <div className="w-12 h-px bg-[#f3d1dc] mx-auto" />
 
               <div className="space-y-1">
-                <p className="font-cinzel text-[10px] tracking-[0.2em] uppercase opacity-40">Family From</p>
-                <p className="font-cinzel text-sm font-semibold">Katras, Dhanbad</p>
+                <p className="font-cinzel text-[10px] tracking-[0.2em] uppercase opacity-40 text-[#4a4a4a]">Family From</p>
+                <p className="font-cinzel text-sm font-semibold text-[#4a4a4a]">Katras, Dhanbad</p>
               </div>
             </div>
           </motion.div>
@@ -450,13 +460,13 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
       </section>
 
       {/* Timeline Section */}
-      <section className="py-24 bg-white/30" ref={timelineRef}>
+      <section className="py-24 bg-[#fff8f5]" ref={timelineRef}>
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="font-cinzel text-3xl md:text-4xl text-center mb-16 tracking-widest">Event Timeline</h2>
+          <h2 className="font-cinzel text-3xl md:text-4xl text-center mb-16 tracking-widest text-[#3a3a3a]">Event Timeline</h2>
           
           <div className="relative">
             <motion.div 
-              className="absolute left-[-12px] z-10 text-[#e8cfc1]"
+              className="absolute left-[-12px] z-10 text-[#f72585]"
               style={{ top: flowerY }}
             >
               <Flower2 size={24} className="fill-current" />
@@ -487,19 +497,21 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
       </section>
 
       {/* Venue Section */}
-      <section className="py-24 px-4">
+      <section className="py-24 px-4 bg-[#D90166]">
         <div className="max-w-6xl mx-auto">
-          <div className="glass p-8 md:p-12 rounded-[3rem] overflow-hidden">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div>
-                <h2 className="font-cinzel text-3xl mb-6 tracking-widest">The Venue</h2>
-                <p className="text-xl font-semibold mb-2 text-[#e8cfc1]">Hotel Clarks Inn Suites</p>
-                <p className="opacity-70 mb-8">Dhanbad, Jharkhand</p>
+          <div className="bg-white/10 backdrop-blur-xl p-8 md:p-16 rounded-[3rem] overflow-hidden shadow-2xl border border-white/20">
+            <div className="grid md:grid-cols-2 gap-16 items-center">
+              <div className="space-y-8">
+                <div>
+                  <h2 className="font-cinzel text-4xl mb-6 tracking-widest text-white">The Venue</h2>
+                  <p className="text-2xl font-semibold mb-2 text-white">Hotel Clarks Inn Suites</p>
+                  <p className="text-lg text-[#FFD1DC]">Dhanbad, Jharkhand</p>
+                </div>
                 
-                <div className="space-y-6 mb-8">
+                <div className="space-y-6">
                   <div className="flex items-start gap-4">
-                    <MapPin className="text-[#e8cfc1] shrink-0" />
-                    <p className="text-sm leading-relaxed">
+                    <MapPin className="text-[#FFD1DC] shrink-0" size={24} />
+                    <p className="text-base leading-relaxed text-white/90">
                       Experience the luxury and grandeur of our celebration at the prestigious Clarks Inn Suites.
                     </p>
                   </div>
@@ -509,13 +521,13 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
                   href="https://maps.google.com/?q=Hotel+Clarks+Inn+Suites+Dhanbad" 
                   target="_blank" 
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 bg-[#e8cfc1] text-white px-8 py-4 rounded-full font-semibold hover:bg-[#dcb8a6] transition-colors shadow-lg"
+                  className="inline-flex items-center gap-3 bg-white text-[#D90166] px-10 py-5 rounded-full font-bold hover:bg-[#FFE4EC] transition-all transform hover:scale-105 shadow-xl uppercase tracking-widest text-sm"
                 >
-                  <MapPin size={18} /> Open in Google Maps
+                  <MapPin size={20} /> Open in Google Maps
                 </a>
               </div>
               
-              <div className="h-80 md:h-[450px] rounded-3xl overflow-hidden shadow-2xl">
+              <div className="h-80 md:h-[500px] rounded-[2rem] overflow-hidden shadow-2xl border border-white/20">
                 <iframe 
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.0438139534685!2d86.4357731!3d23.8170425!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f6a32a688b7aa3%3A0x6b8bc23db0de5855!2sClarks%20Inn%20Suites%20Dhanbad!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
                   width="100%" 
@@ -533,65 +545,65 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
       </section>
 
       {/* Special Note & Barat Info */}
-      <section className="py-24 px-4 bg-[#f3d1dc]/10">
+      <section className="py-24 px-4 bg-[#fff8f5]">
         <div className="max-w-4xl mx-auto text-center space-y-16">
           <motion.div 
-            className="glass p-12 rounded-[3rem]"
+            className="glass p-12 rounded-[3rem] border-[#d4a373]/20"
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
           >
-            <Heart className="mx-auto text-[#e8cfc1] mb-6" size={48} />
-            <h3 className="font-cinzel text-2xl mb-4 tracking-widest uppercase">Special Note</h3>
-            <p className="font-vibes text-4xl text-[#e8cfc1] mb-2">Aashirwad Ceremony followed by Dinner</p>
-            <p className="opacity-60">From 8:00 PM onwards till your arrival</p>
+            <Heart className="mx-auto text-[#d4a373] mb-6" size={48} />
+            <h3 className="font-cinzel text-2xl mb-4 tracking-widest uppercase text-[#3a3a3a]">Special Note</h3>
+            <p className="font-vibes text-4xl text-[#d4a373] mb-2">Aashirwad Ceremony followed by Dinner</p>
+            <p className="opacity-60 text-[#3a3a3a]">From 8:00 PM onwards till your arrival</p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-8">
-            <div className="glass p-8 rounded-3xl">
-              <h3 className="font-cinzel text-lg mb-4 tracking-widest uppercase opacity-60">Barat From</h3>
-              <p className="font-semibold text-lg">Shri Manoj Kumar Dangayach</p>
-              <p className="text-sm opacity-70">Katras, Dhanbad</p>
+            <div className="glass p-8 rounded-3xl border-[#d4a373]/10">
+              <h3 className="font-cinzel text-lg mb-4 tracking-widest uppercase opacity-60 text-[#3a3a3a]">Barat From</h3>
+              <p className="font-semibold text-lg text-[#3a3a3a]">Shri Manoj Kumar Dangayach</p>
+              <p className="text-sm opacity-70 text-[#3a3a3a]">Katras, Dhanbad</p>
             </div>
-            <div className="glass p-8 rounded-3xl">
-              <h3 className="font-cinzel text-lg mb-4 tracking-widest uppercase opacity-60">Barat To</h3>
-              <p className="font-semibold text-lg">Hotel Clarks Inn Suites</p>
-              <p className="text-sm opacity-70">Dhanbad</p>
+            <div className="glass p-8 rounded-3xl border-[#d4a373]/10">
+              <h3 className="font-cinzel text-lg mb-4 tracking-widest uppercase opacity-60 text-[#3a3a3a]">Barat To</h3>
+              <p className="font-semibold text-lg text-[#3a3a3a]">Hotel Clarks Inn Suites</p>
+              <p className="text-sm opacity-70 text-[#3a3a3a]">Dhanbad</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Family Section */}
-      <section className="py-24 px-4">
+      <section className="py-24 px-4 bg-[#fffaf7]">
         <div className="max-w-6xl mx-auto">
-          <h2 className="font-cinzel text-3xl text-center mb-16 tracking-widest">With Love & Blessings</h2>
+          <h2 className="font-cinzel text-3xl text-center mb-16 tracking-widest text-[#4a4a4a]">With Love & Blessings</h2>
           
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="glass p-8 rounded-3xl">
-              <h4 className="font-cinzel text-sm uppercase tracking-widest mb-6 opacity-60">Inviting</h4>
-              <p className="leading-relaxed text-sm">
+            <div className="glass p-8 rounded-3xl border-[#e8cfc1]/20">
+              <h4 className="font-cinzel text-sm uppercase tracking-widest mb-6 opacity-60 text-[#4a4a4a]">Inviting</h4>
+              <p className="leading-relaxed text-sm text-[#4a4a4a]">
                 Shyamsundar, Lakshminarayan, Radheshyam, Pushkarraj, Deepak, Kamalkishore & Family
               </p>
             </div>
             
-            <div className="glass p-8 rounded-3xl">
-              <h4 className="font-cinzel text-sm uppercase tracking-widest mb-6 opacity-60">Welcoming</h4>
-              <div className="space-y-4 text-sm">
+            <div className="glass p-8 rounded-3xl border-[#e8cfc1]/20">
+              <h4 className="font-cinzel text-sm uppercase tracking-widest mb-6 opacity-60 text-[#4a4a4a]">Welcoming</h4>
+              <div className="space-y-4 text-sm text-[#4a4a4a]">
                 <p>Jyoti, Sangeeta, Anjali</p>
                 <p>Jitendra, Narendra, Aditya</p>
                 <p>Ankita, Arpit</p>
               </div>
             </div>
             
-            <div className="glass p-8 rounded-3xl">
-              <h4 className="font-cinzel text-sm uppercase tracking-widest mb-6 opacity-60">Maternal</h4>
-              <p className="mb-4 text-sm">Ramanarayan, Sanjay, Sandeep</p>
-              <p className="text-xs opacity-60">(Sohagpur, MP)</p>
+            <div className="glass p-8 rounded-3xl border-[#e8cfc1]/20">
+              <h4 className="font-cinzel text-sm uppercase tracking-widest mb-6 opacity-60 text-[#4a4a4a]">Maternal</h4>
+              <p className="mb-4 text-sm text-[#4a4a4a]">Ramanarayan, Sanjay, Sandeep</p>
+              <p className="text-xs opacity-60 text-[#4a4a4a]">(Sohagpur, MP)</p>
               
-              <div className="mt-8 pt-8 border-t border-white/20">
-                <h4 className="font-cinzel text-sm uppercase tracking-widest mb-2 opacity-60">Special</h4>
-                <p className="font-vibes text-2xl text-[#e8cfc1]">Pahal Khandelwal</p>
+              <div className="mt-8 pt-8 border-t border-[#e8cfc1]/30">
+                <h4 className="font-cinzel text-sm uppercase tracking-widest mb-2 opacity-60 text-[#4a4a4a]">Special</h4>
+                <p className="font-vibes text-2xl text-[#d4a373]">Pahal Khandelwal</p>
               </div>
             </div>
           </div>
@@ -600,23 +612,31 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
 
       <GuestBook />
       {/* Footer */}
-      <footer className="py-16 px-4 text-center">
+      <footer className="py-20 px-4 text-center bg-[#D90166]">
         <div className="max-w-md mx-auto space-y-8">
           <div className="flex justify-center gap-6">
             <a 
               href="https://instagram.com/brandupwithhoney" 
               target="_blank" 
               rel="noreferrer"
-              className="text-[#e8cfc1] hover:scale-125 transition-transform"
+              className="text-white hover:scale-125 transition-transform"
             >
-              <Instagram size={32} />
+              <Instagram size={40} />
             </a>
           </div>
           
-          <div className="space-y-2">
-            <p className="font-cinzel text-sm tracking-widest opacity-60">@brandupwithhoney</p>
-            <p className="text-sm">
-              Designed with <Heart className="inline text-red-500 fill-red-500 mx-1" size={14} /> by @brandupwithhoney
+          <div className="space-y-4">
+            <p className="font-cinzel text-lg tracking-[0.3em] text-[#FFE4EC] uppercase">Thank You</p>
+            <a 
+              href="https://instagram.com/brandupwithhoney" 
+              target="_blank" 
+              rel="noreferrer"
+              className="block font-cinzel text-xl tracking-widest text-white font-bold underline decoration-white/30 underline-offset-8"
+            >
+              @brandupwithhoney
+            </a>
+            <p className="text-sm text-white/70 pt-4">
+              Designed with <Heart className="inline text-white fill-white mx-1" size={14} /> by @brandupwithhoney
             </p>
           </div>
         </div>
@@ -664,37 +684,37 @@ const GuestBook = () => {
   };
 
   return (
-    <section className="py-24 px-4 bg-white/20">
+    <section className="py-24 px-4 bg-[#fffaf7]">
       <div className="max-w-4xl mx-auto">
-        <h2 className="font-cinzel text-3xl text-center mb-12 tracking-widest uppercase">Guest Book</h2>
+        <h2 className="font-cinzel text-3xl text-center mb-12 tracking-widest uppercase text-[#4a4a4a]">Guest Book</h2>
         
         <div className="grid md:grid-cols-2 gap-12">
           {/* Form */}
           <motion.div 
-            className="glass p-8 rounded-3xl"
+            className="glass p-8 rounded-3xl border-[#e8cfc1]/20"
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <h3 className="font-cinzel text-lg mb-6 tracking-wider opacity-80">Leave a Wish</h3>
+            <h3 className="font-cinzel text-lg mb-6 tracking-wider opacity-80 text-[#4a4a4a]">Leave a Wish</h3>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label className="block text-xs font-cinzel uppercase tracking-widest mb-2 opacity-50">Your Name</label>
+                <label className="block text-xs font-cinzel uppercase tracking-widest mb-2 opacity-50 text-[#4a4a4a]">Your Name</label>
                 <input 
                   type="text" 
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full bg-white/50 border border-white/20 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#e8cfc1] transition-all"
+                  className="w-full bg-white/50 border border-[#e8cfc1]/20 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#e8cfc1] transition-all text-[#4a4a4a]"
                   placeholder="Enter your name"
                   required
                 />
               </div>
               <div>
-                <label className="block text-xs font-cinzel uppercase tracking-widest mb-2 opacity-50">Your Message</label>
+                <label className="block text-xs font-cinzel uppercase tracking-widest mb-2 opacity-50 text-[#4a4a4a]">Your Message</label>
                 <textarea 
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="w-full bg-white/50 border border-white/20 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#e8cfc1] transition-all h-32 resize-none"
+                  className="w-full bg-white/50 border border-[#e8cfc1]/20 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#e8cfc1] transition-all h-32 resize-none text-[#4a4a4a]"
                   placeholder="Write your blessings..."
                   required
                 />
@@ -702,7 +722,7 @@ const GuestBook = () => {
               <button 
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-[#e8cfc1] text-white font-cinzel tracking-widest py-4 rounded-xl hover:bg-[#dcb8a6] transition-colors disabled:opacity-50"
+                className="w-full bg-[#e8cfc1] text-[#4a4a4a] font-cinzel tracking-widest py-4 rounded-xl hover:bg-[#dcb8a6] transition-colors disabled:opacity-50"
               >
                 {isSubmitting ? "Sending..." : "Send Wishes"}
               </button>
@@ -716,9 +736,9 @@ const GuestBook = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <h3 className="font-cinzel text-lg mb-6 tracking-wider opacity-80">Recent Wishes</h3>
+            <h3 className="font-cinzel text-lg mb-6 tracking-wider opacity-80 text-[#4a4a4a]">Recent Wishes</h3>
             {wishes.length === 0 ? (
-              <p className="text-center py-12 opacity-40 font-cinzel italic">No wishes yet. Be the first!</p>
+              <p className="text-center py-12 opacity-40 font-cinzel italic text-[#4a4a4a]">No wishes yet. Be the first!</p>
             ) : (
               wishes.map((wish) => (
                 <motion.div 
@@ -727,10 +747,10 @@ const GuestBook = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                 >
-                  <p className="text-sm leading-relaxed mb-3 italic opacity-80">"{wish.message}"</p>
+                  <p className="text-sm leading-relaxed mb-3 italic opacity-80 text-[#4a4a4a]">"{wish.message}"</p>
                   <div className="flex justify-between items-center">
-                    <p className="font-cinzel text-xs font-bold tracking-widest uppercase text-[#e8cfc1]">{wish.name}</p>
-                    <p className="text-[10px] opacity-40">
+                    <p className="font-cinzel text-xs font-bold tracking-widest uppercase text-[#d4a373]">{wish.name}</p>
+                    <p className="text-[10px] opacity-40 text-[#4a4a4a]">
                       {new Date(wish.createdAt).toLocaleDateString()}
                     </p>
                   </div>
