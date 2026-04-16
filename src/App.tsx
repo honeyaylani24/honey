@@ -6,6 +6,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { 
+  collection, 
+  addDoc, 
+  onSnapshot, 
+  query, 
+  orderBy, 
+  serverTimestamp 
+} from "firebase/firestore";
+import { db } from "./firebase";
+import { 
   Heart, 
   Volume2, 
   VolumeX, 
@@ -589,6 +598,7 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
         </div>
       </section>
 
+      <GuestBook />
       {/* Footer */}
       <footer className="py-16 px-4 text-center">
         <div className="max-w-md mx-auto space-y-8">
@@ -612,6 +622,125 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
         </div>
       </footer>
     </motion.main>
+  );
+};
+
+const GuestBook = () => {
+  const [wishes, setWishes] = useState<{ id: string; name: string; message: string; createdAt: string }[]>([]);
+  const [name, setName] = useState("");
+  const [message, setMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    const q = query(collection(db, "wishes"), orderBy("createdAt", "desc"));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const wishesData = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      })) as any[];
+      setWishes(wishesData);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!name.trim() || !message.trim()) return;
+
+    setIsSubmitting(true);
+    try {
+      await addDoc(collection(db, "wishes"), {
+        name,
+        message,
+        createdAt: new Date().toISOString(),
+      });
+      setName("");
+      setMessage("");
+    } catch (error) {
+      console.error("Error adding wish: ", error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <section className="py-24 px-4 bg-white/20">
+      <div className="max-w-4xl mx-auto">
+        <h2 className="font-cinzel text-3xl text-center mb-12 tracking-widest uppercase">Guest Book</h2>
+        
+        <div className="grid md:grid-cols-2 gap-12">
+          {/* Form */}
+          <motion.div 
+            className="glass p-8 rounded-3xl"
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+          >
+            <h3 className="font-cinzel text-lg mb-6 tracking-wider opacity-80">Leave a Wish</h3>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label className="block text-xs font-cinzel uppercase tracking-widest mb-2 opacity-50">Your Name</label>
+                <input 
+                  type="text" 
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full bg-white/50 border border-white/20 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#e8cfc1] transition-all"
+                  placeholder="Enter your name"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-cinzel uppercase tracking-widest mb-2 opacity-50">Your Message</label>
+                <textarea 
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  className="w-full bg-white/50 border border-white/20 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#e8cfc1] transition-all h-32 resize-none"
+                  placeholder="Write your blessings..."
+                  required
+                />
+              </div>
+              <button 
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full bg-[#e8cfc1] text-white font-cinzel tracking-widest py-4 rounded-xl hover:bg-[#dcb8a6] transition-colors disabled:opacity-50"
+              >
+                {isSubmitting ? "Sending..." : "Send Wishes"}
+              </button>
+            </form>
+          </motion.div>
+
+          {/* Messages List */}
+          <motion.div 
+            className="space-y-6 max-h-[500px] overflow-y-auto pr-4 custom-scrollbar"
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+          >
+            <h3 className="font-cinzel text-lg mb-6 tracking-wider opacity-80">Recent Wishes</h3>
+            {wishes.length === 0 ? (
+              <p className="text-center py-12 opacity-40 font-cinzel italic">No wishes yet. Be the first!</p>
+            ) : (
+              wishes.map((wish) => (
+                <motion.div 
+                  key={wish.id}
+                  className="glass p-6 rounded-2xl border-l-4 border-[#e8cfc1]"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                >
+                  <p className="text-sm leading-relaxed mb-3 italic opacity-80">"{wish.message}"</p>
+                  <div className="flex justify-between items-center">
+                    <p className="font-cinzel text-xs font-bold tracking-widest uppercase text-[#e8cfc1]">{wish.name}</p>
+                    <p className="text-[10px] opacity-40">
+                      {new Date(wish.createdAt).toLocaleDateString()}
+                    </p>
+                  </div>
+                </motion.div>
+              ))
+            )}
+          </motion.div>
+        </div>
+      </div>
+    </section>
   );
 };
 

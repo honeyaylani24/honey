@@ -1,10 +1,24 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    // Helper functions
+    function isValidWish(data) {
+      return data.name is string && data.name.size() > 0 && data.name.size() < 100 &&
+             data.message is string && data.message.size() > 0 && data.message.size() < 1000 &&
+             data.createdAt is string;
+    }
+
     // Allow public read access to the gallery
     match /gallery/{imageId} {
       allow read: if true;
-      allow write: if false; // Only admin should write, but we don't have admin UI here
+      allow write: if false;
+    }
+
+    // Guest Book Wishes
+    match /wishes/{wishId} {
+      allow read: if true;
+      allow create: if isValidWish(request.resource.data);
+      allow update, delete: if false;
     }
     
     // Default deny

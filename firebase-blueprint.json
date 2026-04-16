@@ -9,12 +9,27 @@
         "caption": { "type": "string" }
       },
       "required": ["url"]
+    },
+    "wishes": {
+      "title": "Guest Wish",
+      "description": "Wishes left by guests in the guest book",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Name of the guest" },
+        "message": { "type": "string", "description": "The wish message" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Timestamp of the wish" }
+      },
+      "required": ["name", "message", "createdAt"]
     }
   },
   "firestore": {
     "/gallery/{imageId}": {
       "schema": "gallery",
       "description": "Collection of wedding gallery images"
+    },
+    "/wishes/{wishId}": {
+      "schema": "wishes",
+      "description": "Collection of guest wishes"
     }
   }
 }
