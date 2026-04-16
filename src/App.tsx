@@ -150,55 +150,162 @@ const Envelope: React.FC<{ onOpen: () => void }> = ({ onOpen }) => {
 
   const handleOpen = () => {
     setIsOpen(true);
-    setTimeout(onOpen, 2500);
+    setTimeout(onOpen, 1500);
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-[#fff1eb] p-4">
-      <motion.div 
-        className="relative w-full max-w-lg aspect-[4/3] cursor-pointer"
-        onClick={handleOpen}
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 1, ease: "easeOut" }}
+    <motion.div 
+      className="fixed inset-0 z-[100] overflow-hidden flex flex-col items-center justify-center bg-[#7B3F32] cursor-default"
+      initial={{ opacity: 1 }}
+      animate={isOpen ? { opacity: 0, scale: 1.1 } : { opacity: 1, scale: 1 }}
+      transition={{ duration: 1.5, ease: "easeInOut", delay: isOpen ? 0.3 : 0 }}
+      style={{
+        background: "radial-gradient(circle at center, #7B3F32 0%, #4A241B 100%)"
+      }}
+    >
+      {/* Texture Overlay */}
+      <div 
+        className="absolute inset-0 opacity-20 mix-blend-overlay pointer-events-none"
+        style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
+      />
+      
+      {/* Envelope Flap Drop Shadow Wrapper */}
+      <div 
+        className="absolute top-0 left-0 w-full h-[50vh] pointer-events-none"
+        style={{ 
+          filter: "drop-shadow(0px 10px 15px rgba(0,0,0,0.6))",
+          zIndex: 10
+        }}
       >
-        {/* Envelope Back */}
-        <div className="absolute inset-0 bg-[#f8e1e7] rounded-lg shadow-2xl" />
-        
-        {/* Letter */}
-        <motion.div 
-          className="absolute inset-4 bg-white rounded shadow-inner flex flex-col items-center justify-center p-8 text-center"
-          animate={isOpen ? { y: -150, opacity: 0 } : { y: 0 }}
-          transition={{ duration: 1.2, delay: 0.5 }}
+        <div 
+          className="w-full h-full relative"
+          style={{ 
+            background: "linear-gradient(to bottom, #7B3F32, #653125)",
+            clipPath: "polygon(0 0, 100% 0, 50% 100%)"
+          }}
         >
-          <h2 className="font-vibes text-4xl md:text-6xl text-[#4a4a4a] mb-4">Apeksha & Gaurav</h2>
-          <p className="font-cinzel tracking-widest text-sm uppercase opacity-60 text-[#4a4a4a]">Wedding Invitation</p>
-        </motion.div>
+          <div 
+            className="absolute inset-0 opacity-20 mix-blend-overlay"
+            style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
+          />
+        </div>
+      </div>
 
-        {/* Envelope Flap */}
-        <motion.div 
-          className="absolute top-0 left-0 w-full h-1/2 bg-[#f8e1e7] origin-top z-10"
-          style={{ clipPath: "polygon(0 0, 100% 0, 50% 100%)" }}
-          animate={isOpen ? { rotateX: 180, zIndex: 0 } : { rotateX: 0 }}
-          transition={{ duration: 0.8 }}
-        />
-
-        {/* Wax Seal */}
-        {!isOpen && (
-          <motion.div 
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-16 h-16 bg-[#c9184a] rounded-full flex items-center justify-center shadow-lg border-4 border-[#a4133c]"
-            whileHover={{ scale: 1.1 }}
-          >
-            <span className="font-vibes text-white text-2xl">AG</span>
-          </motion.div>
-        )}
-        
-        <p className="absolute -bottom-12 left-1/2 -translate-x-1/2 font-cinzel text-xs tracking-[0.3em] uppercase opacity-40 animate-pulse text-[#4a4a4a]">
-          Click to Open
+      {/* Top Text (Above Seal) */}
+      <motion.div 
+        className="absolute top-[20vh] w-full text-center z-20 pointer-events-none"
+        animate={isOpen ? { opacity: 0, y: -20 } : { opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <p className="font-vibes text-3xl md:text-4xl text-[#FFF8ED] tracking-widest drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]">
+          Tap to Reveal
         </p>
       </motion.div>
-    </div>
+      
+      {/* Hyper-realistic 3D Wax Seal */}
+      <motion.div 
+        className="absolute top-[50vh] left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 flex items-center justify-center cursor-pointer"
+        initial={{ scale: 1, rotate: 0 }}
+        animate={isOpen ? { scale: [1, 0.95, 1.1, 4], opacity: [1, 1, 0.8, 0], rotate: [0, -2, 2, 0] } : { scale: 1, rotate: 0 }}
+        transition={{ duration: isOpen ? 1.5 : 0.4, ease: "easeInOut" }}
+        whileHover={!isOpen ? { scale: 1.02, rotate: 1 } : {}}
+        whileTap={!isOpen ? { scale: 0.95, rotate: -2 } : {}}
+        onClick={(e) => {
+          e.stopPropagation();
+          if(!isOpen) handleOpen();
+        }}
+      >
+        <div 
+          className="w-32 h-32 md:w-36 md:h-36 relative"
+          style={{
+            borderRadius: "48% 52% 51% 49% / 50% 48% 52% 50%",
+            boxShadow: "0 20px 25px -5px rgba(0,0,0,0.5), 0 10px 10px -5px rgba(0,0,0,0.3)",
+            background: "radial-gradient(circle at 30% 30%, #F5EEE6 0%, #E6DED3 40%, #CFC6BB 100%)",
+          }}
+        >
+          {/* Layer 1: Outer Edge Shading */}
+          <div className="absolute inset-0 rounded-[inherit]"
+               style={{
+                 boxShadow: "inset 4px 4px 8px rgba(255,255,255,0.9), inset -6px -6px 12px rgba(0,0,0,0.15), inset -1px -1px 2px rgba(0,0,0,0.2)",
+               }} />
+
+          {/* Layer 2: Inner Raised Ring */}
+          <div className="absolute inset-3 border border-[#E6DED3]"
+               style={{
+                 borderRadius: "49% 51% 50% 50% / 50% 50% 49% 51%",
+                 boxShadow: "2px 2px 4px rgba(0,0,0,0.1), -2px -2px 4px rgba(255,255,255,0.7), inset 2px 2px 4px rgba(255,255,255,0.8), inset -2px -2px 4px rgba(0,0,0,0.15)",
+                 background: "radial-gradient(circle at 40% 40%, #E6DED3 0%, #CFC6BB 100%)"
+               }}>
+               
+            {/* Layer 3: Ornamental Pattern Ring */}
+            <div className="absolute inset-[4px] rounded-full flex items-center justify-center opacity-80">
+              <svg viewBox="0 0 100 100" className="w-full h-full text-[#B8A896]" 
+                   style={{
+                     filter: "drop-shadow(1px 1px 1px rgba(255,255,255,0.8)) drop-shadow(-1px -1px 0.5px rgba(0,0,0,0.2))"
+                   }}>
+                <circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" strokeWidth="0.5" strokeDasharray="1 2"/>
+                <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" strokeWidth="0.3"/>
+                <g transform="translate(50,50)">
+                  {[0, 90, 180, 270].map(angle => (
+                    <g key={angle} transform={`rotate(${angle})`}>
+                      <path d="M 0,-42 Q 3,-35 0,-30 Q -3,-35 0,-42" fill="currentColor"/>
+                      <path d="M 0,-38 C 12,-38 18,-25 32,-32" fill="none" stroke="currentColor" strokeWidth="0.8"/>
+                      <path d="M 0,-38 C -12,-38 -18,-25 -32,-32" fill="none" stroke="currentColor" strokeWidth="0.8"/>
+                      <circle cx="16" cy="-28" r="1.2" fill="currentColor"/>
+                      <circle cx="-16" cy="-28" r="1.2" fill="currentColor"/>
+                      <circle cx="24" cy="-25" r="0.8" fill="currentColor"/>
+                      <circle cx="-24" cy="-25" r="0.8" fill="currentColor"/>
+                    </g>
+                  ))}
+                  {[45, 135, 225, 315].map(angle => (
+                    <g key={angle} transform={`rotate(${angle})`}>
+                      <path d="M 0,-38 C 5,-32 5,-28 0,-24" fill="none" stroke="currentColor" strokeWidth="0.6"/>
+                      <circle cx="0" cy="-40" r="1" fill="currentColor" />
+                    </g>
+                  ))}
+                </g>
+              </svg>
+            </div>
+
+            {/* Layer 4: Center Medallion (Flat area) */}
+            <div className="absolute inset-5 rounded-full flex items-center justify-center shadow-[inset_1px_1px_3px_rgba(0,0,0,0.1),_inset_-1px_-1px_3px_rgba(255,255,255,0.6)]"
+                 style={{ background: "linear-gradient(135deg, #E6DED3, #DFD5C8)", border: "1px solid rgba(0,0,0,0.02)" }}>
+              {/* Embossed Text */}
+              <span className="font-vibes text-[#A89886] text-4xl md:text-5xl flex items-center"
+                    style={{
+                      textShadow: "1px 1px 1px rgba(255,255,255,0.9), -1px -1px 1px rgba(0,0,0,0.25)"
+                    }}>
+                A<span className="text-2xl md:text-3xl mx-1 text-[#C4B4A2]">&</span>G
+              </span>
+            </div>
+          </div>
+
+          {/* Overall Surface Noise / Grain */}
+          <div className="absolute inset-0 opacity-[0.08] mix-blend-multiply pointer-events-none rounded-[inherit]"
+               style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
+          />
+        </div>
+      </motion.div>
+
+      {/* Bottom Text */}
+      <motion.div 
+        className="absolute bottom-[10vh] w-full text-center space-y-4 z-20 pointer-events-none"
+        animate={isOpen ? { opacity: 0, y: 20 } : { opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <p className="font-vibes text-3xl md:text-4xl text-[#FFF8ED] drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
+          The Khandelwal family
+        </p>
+        <p className="font-cinzel text-[10px] md:text-xs tracking-[0.2em] md:tracking-[0.3em] text-[#FFF8ED] uppercase opacity-90 drop-shadow-md">
+          invite you to celebrate the wedding of
+        </p>
+        <p className="font-vibes text-4xl md:text-5xl text-[#FFF8ED] drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
+          Apeksha & Gaurav
+        </p>
+      </motion.div>
+    </motion.div>
   );
+
 };
 
 const TimelineItem = ({ date, events, index }: { date: string, events: { title: string, time: string }[], index: number }) => {
@@ -231,6 +338,36 @@ const TimelineItem = ({ date, events, index }: { date: string, events: { title: 
   );
 };
 
+const Petals = () => {
+  return (
+    <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden">
+      {[...Array(15)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-3 h-3 rounded-tl-full rounded-br-full bg-gradient-to-br from-[#f72585]/40 to-[#e4c1f9]/20 shadow-sm blur-[0.5px]"
+          initial={{
+            top: "-10%",
+            left: `${Math.random() * 100}%`,
+            rotate: Math.random() * 360,
+            scale: Math.random() * 0.5 + 0.5
+          }}
+          animate={{
+            top: "110%",
+            left: `${Math.random() * 100}%`,
+            rotate: Math.random() * 360 + 360,
+          }}
+          transition={{
+            duration: Math.random() * 10 + 15,
+            repeat: Infinity,
+            ease: "linear",
+            delay: Math.random() * 10
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
 const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, audioRef: React.RefObject<HTMLAudioElement | null> }> = ({ isPlaying, toggleMusic, audioRef }) => {
   const timelineRef = useRef<HTMLDivElement>(null);
   
@@ -248,6 +385,7 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
       transition={{ duration: 1 }}
       className="relative"
     >
+      <Petals />
       <FloatingHearts />
       
       {/* Audio Element */}
@@ -297,7 +435,7 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
         </motion.p>
         
         <motion.h1 
-          className="font-cinzel text-3xl md:text-5xl font-bold mb-4 tracking-widest text-[#3a3a3a] z-10"
+          className="font-cinzel text-3xl md:text-5xl font-bold mb-4 tracking-widest text-black z-10"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7 }}
@@ -377,27 +515,27 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
               </div>
             </div>
             
-            <h2 className="font-vibes text-6xl text-[#4a4a4a] mb-6">Apeksha</h2>
+            <h2 className="font-vibes text-6xl text-black font-bold mb-6">Apeksha</h2>
             
             <div className="bg-white p-8 rounded-[2rem] space-y-4 border border-[#f3d1dc] shadow-xl">
               <div className="space-y-1">
-                <p className="font-cinzel text-[10px] tracking-[0.2em] uppercase opacity-40 text-[#4a4a4a]">Granddaughter of</p>
-                <p className="font-cinzel text-sm font-semibold text-[#4a4a4a]">Late Urmiladevi & Shyamsundar Khandelwal</p>
+                <p className="font-cinzel text-[10px] tracking-[0.2em] uppercase opacity-100 text-black font-bold">Granddaughter of</p>
+                <p className="font-cinzel text-sm font-semibold text-[#7B3F32]">Late Urmiladevi & Shyamsundar Khandelwal</p>
               </div>
               
               <div className="w-12 h-px bg-[#f3d1dc] mx-auto" />
               
               <div className="space-y-1">
-                <p className="font-cinzel text-[10px] tracking-[0.2em] uppercase opacity-40 text-[#4a4a4a]">Daughter of</p>
-                <p className="font-cinzel text-sm font-semibold text-[#4a4a4a]">Jyoti & Jitendra Khandelwal</p>
+                <p className="font-cinzel text-[10px] tracking-[0.2em] uppercase opacity-100 text-black font-bold">Daughter of</p>
+                <p className="font-cinzel text-sm font-semibold text-[#7B3F32]">Jyoti & Jitendra Khandelwal</p>
               </div>
 
               <div className="w-12 h-px bg-[#f3d1dc] mx-auto" />
 
               <div className="space-y-1">
-                <p className="font-cinzel text-[10px] tracking-[0.2em] uppercase opacity-40 text-[#4a4a4a]">Maternal Side</p>
-                <p className="font-cinzel text-xs opacity-70 text-[#4a4a4a]">Ramanarayan, Sanjay, Sandeep</p>
-                <p className="font-cinzel text-[10px] opacity-40 text-[#4a4a4a]">(Sohagpur, MP)</p>
+                <p className="font-cinzel text-[10px] tracking-[0.2em] uppercase opacity-100 text-black font-bold">Maternal Side</p>
+                <p className="font-cinzel text-xs text-black font-bold">Ramanarayan, Sanjay, Sandeep</p>
+                <p className="font-cinzel text-[10px] opacity-70 text-black font-bold">(Sohagpur, MP)</p>
               </div>
             </div>
           </motion.div>
@@ -433,26 +571,26 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
               </div>
             </div>
 
-            <h2 className="font-vibes text-6xl text-[#4a4a4a] mb-6">Gaurav</h2>
+            <h2 className="font-vibes text-6xl text-black font-bold mb-6">Gaurav</h2>
             
             <div className="bg-white p-8 rounded-[2rem] space-y-4 border border-[#f3d1dc] shadow-xl">
               <div className="space-y-1">
-                <p className="font-cinzel text-[10px] tracking-[0.2em] uppercase opacity-40 text-[#4a4a4a]">Grandson of</p>
-                <p className="font-cinzel text-sm font-semibold text-[#4a4a4a]">Late Sharadadevi & Late Ramchandra Dangayach</p>
+                <p className="font-cinzel text-[10px] tracking-[0.2em] uppercase opacity-100 text-black font-bold">Grandson of</p>
+                <p className="font-cinzel text-sm font-semibold text-[#7B3F32]">Late Sharadadevi & Late Ramchandra Dangayach</p>
               </div>
               
               <div className="w-12 h-px bg-[#f3d1dc] mx-auto" />
               
               <div className="space-y-1">
-                <p className="font-cinzel text-[10px] tracking-[0.2em] uppercase opacity-40 text-[#4a4a4a]">Son of</p>
-                <p className="font-cinzel text-sm font-semibold text-[#4a4a4a]">Anita & Manoj Kumar Dangayach</p>
+                <p className="font-cinzel text-[10px] tracking-[0.2em] uppercase opacity-100 text-black font-bold">Son of</p>
+                <p className="font-cinzel text-sm font-semibold text-[#7B3F32]">Anita & Manoj Kumar Dangayach</p>
               </div>
 
               <div className="w-12 h-px bg-[#f3d1dc] mx-auto" />
 
               <div className="space-y-1">
-                <p className="font-cinzel text-[10px] tracking-[0.2em] uppercase opacity-40 text-[#4a4a4a]">Family From</p>
-                <p className="font-cinzel text-sm font-semibold text-[#4a4a4a]">Katras, Dhanbad</p>
+                <p className="font-cinzel text-[10px] tracking-[0.2em] uppercase opacity-100 text-black font-bold">Family From</p>
+                <p className="font-cinzel text-sm font-semibold text-[#7B3F32]">Katras, Dhanbad</p>
               </div>
             </div>
           </motion.div>
@@ -462,7 +600,7 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
       {/* Timeline Section */}
       <section className="py-24 bg-[#fff8f5]" ref={timelineRef}>
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="font-cinzel text-3xl md:text-4xl text-center mb-16 tracking-widest text-[#3a3a3a]">Event Timeline</h2>
+          <h2 className="font-cinzel text-3xl md:text-4xl text-center mb-16 tracking-widest text-black font-bold">WEDDING PROGRAMS</h2>
           
           <div className="relative">
             <motion.div 
@@ -554,19 +692,19 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
             viewport={{ once: true }}
           >
             <Heart className="mx-auto text-[#d4a373] mb-6" size={48} />
-            <h3 className="font-cinzel text-2xl mb-4 tracking-widest uppercase text-[#3a3a3a]">Special Note</h3>
+            <h3 className="font-cinzel text-2xl mb-4 tracking-widest uppercase text-black font-bold">Special Note</h3>
             <p className="font-vibes text-4xl text-[#d4a373] mb-2">Aashirwad Ceremony followed by Dinner</p>
             <p className="opacity-60 text-[#3a3a3a]">From 8:00 PM onwards till your arrival</p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-8">
             <div className="glass p-8 rounded-3xl border-[#d4a373]/10">
-              <h3 className="font-cinzel text-lg mb-4 tracking-widest uppercase opacity-60 text-[#3a3a3a]">Barat From</h3>
-              <p className="font-semibold text-lg text-[#3a3a3a]">Shri Manoj Kumar Dangayach</p>
+              <h3 className="font-cinzel text-lg mb-4 tracking-widest uppercase opacity-100 text-black font-bold">Barat From</h3>
+              <p className="font-semibold text-lg text-[#3a3a3a]">Shri Manoj Kumar Ji Dangayach</p>
               <p className="text-sm opacity-70 text-[#3a3a3a]">Katras, Dhanbad</p>
             </div>
             <div className="glass p-8 rounded-3xl border-[#d4a373]/10">
-              <h3 className="font-cinzel text-lg mb-4 tracking-widest uppercase opacity-60 text-[#3a3a3a]">Barat To</h3>
+              <h3 className="font-cinzel text-lg mb-4 tracking-widest uppercase opacity-100 text-black font-bold">Barat To</h3>
               <p className="font-semibold text-lg text-[#3a3a3a]">Hotel Clarks Inn Suites</p>
               <p className="text-sm opacity-70 text-[#3a3a3a]">Dhanbad</p>
             </div>
@@ -577,32 +715,33 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
       {/* Family Section */}
       <section className="py-24 px-4 bg-[#fffaf7]">
         <div className="max-w-6xl mx-auto">
-          <h2 className="font-cinzel text-3xl text-center mb-16 tracking-widest text-[#4a4a4a]">With Love & Blessings</h2>
+          <h2 className="font-cinzel text-3xl text-center mb-16 tracking-widest text-black font-bold">With Love & Blessings</h2>
           
           <div className="grid md:grid-cols-3 gap-8">
             <div className="glass p-8 rounded-3xl border-[#e8cfc1]/20">
-              <h4 className="font-cinzel text-sm uppercase tracking-widest mb-6 opacity-60 text-[#4a4a4a]">Inviting</h4>
+              <h4 className="font-cinzel text-sm uppercase tracking-widest mb-6 opacity-100 text-black font-bold">Inviting</h4>
               <p className="leading-relaxed text-sm text-[#4a4a4a]">
-                Shyamsundar, Lakshminarayan, Radheshyam, Pushkarraj, Deepak, Kamalkishore & Family
+                Shyamsundar Ji, Lakshminarayan Ji, Radheshyam Ji, Pushkarraj Ji, Deepak Ji, Kamalkishore Ji Khandelwal & Family
               </p>
             </div>
             
             <div className="glass p-8 rounded-3xl border-[#e8cfc1]/20">
-              <h4 className="font-cinzel text-sm uppercase tracking-widest mb-6 opacity-60 text-[#4a4a4a]">Welcoming</h4>
+              <h4 className="font-cinzel text-sm uppercase tracking-widest mb-6 opacity-100 text-black font-bold">Welcoming</h4>
               <div className="space-y-4 text-sm text-[#4a4a4a]">
-                <p>Jyoti, Sangeeta, Anjali</p>
-                <p>Jitendra, Narendra, Aditya</p>
-                <p>Ankita, Arpit</p>
+                <p>Mrs. Jyoti & CA Jitendra Ji Khandelwal</p>
+                <p>Mrs. Sangeeta & Narendra Ji Khandelwal</p>
+                <p>Mrs. CA Anjali & CA Aditya Ji Khandelwal</p>
+                <p>Ankita & Arpit</p>
               </div>
             </div>
             
             <div className="glass p-8 rounded-3xl border-[#e8cfc1]/20">
-              <h4 className="font-cinzel text-sm uppercase tracking-widest mb-6 opacity-60 text-[#4a4a4a]">Maternal</h4>
-              <p className="mb-4 text-sm text-[#4a4a4a]">Ramanarayan, Sanjay, Sandeep</p>
-              <p className="text-xs opacity-60 text-[#4a4a4a]">(Sohagpur, MP)</p>
+              <h4 className="font-cinzel text-sm uppercase tracking-widest mb-6 opacity-100 text-black font-bold">Maternal</h4>
+              <p className="mb-4 text-sm text-[#4a4a4a]">Ramanarayan Ji, Sanjay Ji, Sandeep Ji</p>
+              <p className="text-xs opacity-100 text-[#4a4a4a]">(Sohagpur, MP)</p>
               
               <div className="mt-8 pt-8 border-t border-[#e8cfc1]/30">
-                <h4 className="font-cinzel text-sm uppercase tracking-widest mb-2 opacity-60 text-[#4a4a4a]">Special</h4>
+                <h4 className="font-cinzel text-sm uppercase tracking-widest mb-2 opacity-100 text-black font-bold">Special</h4>
                 <p className="font-vibes text-2xl text-[#d4a373]">Pahal Khandelwal</p>
               </div>
             </div>
@@ -686,7 +825,7 @@ const GuestBook = () => {
   return (
     <section className="py-24 px-4 bg-[#fffaf7]">
       <div className="max-w-4xl mx-auto">
-        <h2 className="font-cinzel text-3xl text-center mb-12 tracking-widest uppercase text-[#4a4a4a]">Guest Book</h2>
+        <h2 className="font-cinzel text-3xl text-center mb-12 tracking-widest uppercase text-black font-bold">Guest Book</h2>
         
         <div className="grid md:grid-cols-2 gap-12">
           {/* Form */}
@@ -696,7 +835,7 @@ const GuestBook = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <h3 className="font-cinzel text-lg mb-6 tracking-wider opacity-80 text-[#4a4a4a]">Leave a Wish</h3>
+            <h3 className="font-cinzel text-lg mb-6 tracking-wider opacity-100 text-black font-bold">Leave a Wish</h3>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label className="block text-xs font-cinzel uppercase tracking-widest mb-2 opacity-50 text-[#4a4a4a]">Your Name</label>
@@ -736,7 +875,7 @@ const GuestBook = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <h3 className="font-cinzel text-lg mb-6 tracking-wider opacity-80 text-[#4a4a4a]">Recent Wishes</h3>
+            <h3 className="font-cinzel text-lg mb-6 tracking-wider opacity-100 text-black font-bold">Recent Wishes</h3>
             {wishes.length === 0 ? (
               <p className="text-center py-12 opacity-40 font-cinzel italic text-[#4a4a4a]">No wishes yet. Be the first!</p>
             ) : (
