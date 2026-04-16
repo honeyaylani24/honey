@@ -1,0 +1,15 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow public read access to the gallery
+    match /gallery/{imageId} {
+      allow read: if true;
+      allow write: if false; // Only admin should write, but we don't have admin UI here
+    }
+    
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

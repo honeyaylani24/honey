@@ -1,0 +1,20 @@
+{
+  "entities": {
+    "gallery": {
+      "title": "Gallery Image",
+      "description": "Images for the wedding gallery",
+      "type": "object",
+      "properties": {
+        "url": { "type": "string", "format": "uri" },
+        "caption": { "type": "string" }
+      },
+      "required": ["url"]
+    }
+  },
+  "firestore": {
+    "/gallery/{imageId}": {
+      "schema": "gallery",
+      "description": "Collection of wedding gallery images"
+    }
+  }
+}
