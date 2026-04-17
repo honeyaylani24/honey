@@ -157,7 +157,7 @@ const Envelope: React.FC<{ onOpen: () => void }> = ({ onOpen }) => {
     <motion.div 
       className="fixed inset-0 z-[100] overflow-hidden flex flex-col items-center justify-center bg-[#7B3F32] cursor-default"
       initial={{ opacity: 1 }}
-      animate={isOpen ? { opacity: 0, scale: 1.1 } : { opacity: 1, scale: 1 }}
+      animate={isOpen ? { opacity: 0, scale: 1.15 } : { opacity: 1, scale: 1 }}
       transition={{ duration: 1.5, ease: "easeInOut", delay: isOpen ? 0.3 : 0 }}
       style={{
         background: "radial-gradient(circle at center, #7B3F32 0%, #4A241B 100%)"
@@ -169,27 +169,25 @@ const Envelope: React.FC<{ onOpen: () => void }> = ({ onOpen }) => {
         style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
       />
       
-      {/* Envelope Flap Drop Shadow Wrapper */}
-      <div 
-        className="absolute top-0 left-0 w-full h-[50vh] pointer-events-none"
+      {/* Animated Envelope Flap */}
+      <motion.div 
+        className="absolute top-0 left-0 w-full h-[50vh] origin-top z-10"
+        initial={{ rotateX: 0 }}
+        animate={isOpen ? { rotateX: -110, y: -20 } : { rotateX: 0 }}
+        transition={{ duration: 1.2, ease: "easeInOut" }}
         style={{ 
+          background: "linear-gradient(to bottom, #7B3F32, #653125)",
+          clipPath: "polygon(0 0, 100% 0, 50% 100%)",
           filter: "drop-shadow(0px 10px 15px rgba(0,0,0,0.6))",
-          zIndex: 10
+          perspective: 1000,
+          transformStyle: "preserve-3d"
         }}
       >
         <div 
-          className="w-full h-full relative"
-          style={{ 
-            background: "linear-gradient(to bottom, #7B3F32, #653125)",
-            clipPath: "polygon(0 0, 100% 0, 50% 100%)"
-          }}
-        >
-          <div 
-            className="absolute inset-0 opacity-20 mix-blend-overlay"
-            style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
-          />
-        </div>
-      </div>
+          className="absolute inset-0 opacity-20 mix-blend-overlay"
+          style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
+        />
+      </motion.div>
 
       {/* Top Text (Above Seal) */}
       <motion.div 
@@ -202,89 +200,30 @@ const Envelope: React.FC<{ onOpen: () => void }> = ({ onOpen }) => {
         </p>
       </motion.div>
       
-      {/* Hyper-realistic 3D Wax Seal */}
+      {/* Custom Logo Seal Image Replacement */}
       <motion.div 
         className="absolute top-[50vh] left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 flex items-center justify-center cursor-pointer"
         initial={{ scale: 1, rotate: 0 }}
-        animate={isOpen ? { scale: [1, 0.95, 1.1, 4], opacity: [1, 1, 0.8, 0], rotate: [0, -2, 2, 0] } : { scale: 1, rotate: 0 }}
+        animate={isOpen ? { 
+          scale: [1, 0.95, 1.2, 5], 
+          opacity: [1, 1, 0.8, 0], 
+          rotate: [0, -3, 3, 0],
+          y: isOpen ? -100 : 0
+        } : { scale: 1, rotate: 0 }}
         transition={{ duration: isOpen ? 1.5 : 0.4, ease: "easeInOut" }}
-        whileHover={!isOpen ? { scale: 1.02, rotate: 1 } : {}}
+        whileHover={!isOpen ? { scale: 1.05, rotate: 1 } : {}}
         whileTap={!isOpen ? { scale: 0.95, rotate: -2 } : {}}
         onClick={(e) => {
           e.stopPropagation();
           if(!isOpen) handleOpen();
         }}
       >
-        <div 
-          className="w-32 h-32 md:w-36 md:h-36 relative"
-          style={{
-            borderRadius: "48% 52% 51% 49% / 50% 48% 52% 50%",
-            boxShadow: "0 20px 25px -5px rgba(0,0,0,0.5), 0 10px 10px -5px rgba(0,0,0,0.3)",
-            background: "radial-gradient(circle at 30% 30%, #F5EEE6 0%, #E6DED3 40%, #CFC6BB 100%)",
-          }}
-        >
-          {/* Layer 1: Outer Edge Shading */}
-          <div className="absolute inset-0 rounded-[inherit]"
-               style={{
-                 boxShadow: "inset 4px 4px 8px rgba(255,255,255,0.9), inset -6px -6px 12px rgba(0,0,0,0.15), inset -1px -1px 2px rgba(0,0,0,0.2)",
-               }} />
-
-          {/* Layer 2: Inner Raised Ring */}
-          <div className="absolute inset-3 border border-[#E6DED3]"
-               style={{
-                 borderRadius: "49% 51% 50% 50% / 50% 50% 49% 51%",
-                 boxShadow: "2px 2px 4px rgba(0,0,0,0.1), -2px -2px 4px rgba(255,255,255,0.7), inset 2px 2px 4px rgba(255,255,255,0.8), inset -2px -2px 4px rgba(0,0,0,0.15)",
-                 background: "radial-gradient(circle at 40% 40%, #E6DED3 0%, #CFC6BB 100%)"
-               }}>
-               
-            {/* Layer 3: Ornamental Pattern Ring */}
-            <div className="absolute inset-[4px] rounded-full flex items-center justify-center opacity-80">
-              <svg viewBox="0 0 100 100" className="w-full h-full text-[#B8A896]" 
-                   style={{
-                     filter: "drop-shadow(1px 1px 1px rgba(255,255,255,0.8)) drop-shadow(-1px -1px 0.5px rgba(0,0,0,0.2))"
-                   }}>
-                <circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" strokeWidth="0.5" strokeDasharray="1 2"/>
-                <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" strokeWidth="0.3"/>
-                <g transform="translate(50,50)">
-                  {[0, 90, 180, 270].map(angle => (
-                    <g key={angle} transform={`rotate(${angle})`}>
-                      <path d="M 0,-42 Q 3,-35 0,-30 Q -3,-35 0,-42" fill="currentColor"/>
-                      <path d="M 0,-38 C 12,-38 18,-25 32,-32" fill="none" stroke="currentColor" strokeWidth="0.8"/>
-                      <path d="M 0,-38 C -12,-38 -18,-25 -32,-32" fill="none" stroke="currentColor" strokeWidth="0.8"/>
-                      <circle cx="16" cy="-28" r="1.2" fill="currentColor"/>
-                      <circle cx="-16" cy="-28" r="1.2" fill="currentColor"/>
-                      <circle cx="24" cy="-25" r="0.8" fill="currentColor"/>
-                      <circle cx="-24" cy="-25" r="0.8" fill="currentColor"/>
-                    </g>
-                  ))}
-                  {[45, 135, 225, 315].map(angle => (
-                    <g key={angle} transform={`rotate(${angle})`}>
-                      <path d="M 0,-38 C 5,-32 5,-28 0,-24" fill="none" stroke="currentColor" strokeWidth="0.6"/>
-                      <circle cx="0" cy="-40" r="1" fill="currentColor" />
-                    </g>
-                  ))}
-                </g>
-              </svg>
-            </div>
-
-            {/* Layer 4: Center Medallion (Flat area) */}
-            <div className="absolute inset-5 rounded-full flex items-center justify-center shadow-[inset_1px_1px_3px_rgba(0,0,0,0.1),_inset_-1px_-1px_3px_rgba(255,255,255,0.6)]"
-                 style={{ background: "linear-gradient(135deg, #E6DED3, #DFD5C8)", border: "1px solid rgba(0,0,0,0.02)" }}>
-              {/* Embossed Text */}
-              <span className="font-vibes text-[#A89886] text-4xl md:text-5xl flex items-center"
-                    style={{
-                      textShadow: "1px 1px 1px rgba(255,255,255,0.9), -1px -1px 1px rgba(0,0,0,0.25)"
-                    }}>
-                A<span className="text-2xl md:text-3xl mx-1 text-[#C4B4A2]">&</span>G
-              </span>
-            </div>
-          </div>
-
-          {/* Overall Surface Noise / Grain */}
-          <div className="absolute inset-0 opacity-[0.08] mix-blend-multiply pointer-events-none rounded-[inherit]"
-               style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
-          />
-        </div>
+        <img 
+          src="https://res.cloudinary.com/dopbsr7o1/image/upload/f_auto,q_auto/Untitled_design-removebg-preview_ta9csz"
+          alt="Wedding Logo Seal"
+          className="w-[130px] md:w-[160px] object-contain drop-shadow-2xl"
+          referrerPolicy="no-referrer"
+        />
       </motion.div>
 
       {/* Bottom Text */}
@@ -297,7 +236,7 @@ const Envelope: React.FC<{ onOpen: () => void }> = ({ onOpen }) => {
           The Khandelwal family
         </p>
         <p className="font-cinzel text-[10px] md:text-xs tracking-[0.2em] md:tracking-[0.3em] text-[#FFF8ED] uppercase opacity-90 drop-shadow-md">
-          invite you to celebrate the wedding of
+          invites you to celebrate the wedding of
         </p>
         <p className="font-vibes text-4xl md:text-5xl text-[#FFF8ED] drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
           Apeksha & Gaurav
@@ -305,7 +244,6 @@ const Envelope: React.FC<{ onOpen: () => void }> = ({ onOpen }) => {
       </motion.div>
     </motion.div>
   );
-
 };
 
 const TimelineItem = ({ date, events, index }: { date: string, events: { title: string, time: string }[], index: number }) => {
@@ -461,7 +399,7 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
           className="z-10"
         >
         <p className="font-cinzel text-xl md:text-2xl tracking-widest mb-4 text-[#3a3a3a] font-bold">On</p>
-          <p className="font-cinzel text-xl md:text-2xl tracking-widest mb-4 text-[#3a3a3a] font-bold">30th April & 1 MAY 2026</p>
+          <p className="font-cinzel text-xl md:text-2xl tracking-widest mb-4 text-[#3a3a3a] font-bold">30th April & 1st MAY 2026</p>
           <motion.p 
             className="font-cinzel text-[10px] uppercase tracking-[0.3em] text-[#3a3a3a] opacity-40 mt-8"
             animate={{ opacity: [0.2, 0.5, 0.2] }}
@@ -584,7 +522,7 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
             <div className="bg-white p-8 rounded-[2rem] space-y-4 border border-[#f3d1dc] shadow-xl">
               <div className="space-y-1">
                 <p className="font-cinzel text-[10px] tracking-[0.2em] uppercase opacity-100 text-black font-bold">Grandson of</p>
-                <p className="font-cinzel text-sm font-semibold text-[#7B3F32]">Late Sharadadevi & Late Ramchandra Dangayach</p>
+                <p className="font-cinzel text-sm font-semibold text-[#7B3F32]">Late Shardadevi & Late Ramchandra Dangayach</p>
               </div>
               
               <div className="w-12 h-px bg-[#f3d1dc] mx-auto" />
@@ -608,7 +546,7 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
       {/* Timeline Section */}
       <section className="py-24 bg-[#fff8f5]" ref={timelineRef}>
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="font-cinzel text-3xl md:text-4xl text-center mb-16 tracking-widest text-black font-bold">WEDDING PROGRAMS</h2>
+          <h2 className="font-cinzel text-3xl md:text-4xl text-center mb-16 tracking-widest text-black font-bold">WEDDING PROGRAMME</h2>
           
           <div className="relative">
             <motion.div 
@@ -652,22 +590,26 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
                 <div>
                   <h2 className="font-cinzel text-4xl mb-6 tracking-widest text-[#8b3103]">The Venue</h2>
                   <p className="text-2xl font-semibold mb-2 text-[#8b3103]">Hotel Clarks Inn Suites</p>
-                  <p className="text-lg text-[#8b3103]">Dhanbad, Jharkhand</p>
+                  <p className="text-lg text-[#8b3103]">Bank More, Dhanbad, Jharkhand</p>
                 </div>
                 
-                <a 
-                  href="https://maps.google.com/?q=Hotel+Clarks+Inn+Suites+Dhanbad" 
-                  target="_blank" 
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-3 bg-white text-[#8b3103] px-10 py-5 rounded-full font-bold hover:bg-[#FFE4EC] transition-all transform hover:scale-105 shadow-xl uppercase tracking-widest text-sm"
-                >
-                  Open in Google Maps
-                </a>
+                <div className="pt-4">
+                  <p className="text-sm text-[#8b3103] mb-4 opacity-70">Click below to navigate directly to the venue</p>
+                  <a 
+                    href="https://www.google.com/maps/dir/?api=1&destination=Hotel+Clarks+Inn+Suites+Dhanbad" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-3 bg-[#8b3103] text-white px-10 py-5 rounded-full font-bold hover:bg-[#6b2502] transition-all transform hover:scale-105 shadow-xl uppercase tracking-widest text-sm"
+                  >
+                    <MapPin size={20} />
+                    Get Directions
+                  </a>
+                </div>
               </div>
               
               <div className="h-80 md:h-[500px] rounded-[2rem] overflow-hidden shadow-2xl border border-white/20">
                 <iframe 
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.0438139534685!2d86.4357731!3d23.8170425!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f6a32a688b7aa3%3A0x6b8bc23db0de5855!2sClarks%20Inn%20Suites%20Dhanbad!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.1132!2d86.4822!3d23.8101!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f6bd00071efa33%3A0xf827e990d24d9c4c!2sClarks%20Inn%20Suites%2C%20Dhanbad!5e0!3m2!1sen!2sin!4v1713356000000!5m2!1sen!2sin" 
                   width="100%" 
                   height="100%" 
                   style={{ border: 0 }} 
