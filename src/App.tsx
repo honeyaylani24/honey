@@ -29,7 +29,7 @@ import {
 // --- CONSTANTS ---
 const WEDDING_DATE = new Date("2026-05-01T12:15:00");
 const LOGO_URL = "https://lh3.googleusercontent.com/d/1e0BllrcGDvt7EprO3gIqMCkaDMuXJ16c";
-const BRIDE_URL = "https://res.cloudinary.com/dopbsr7o1/image/upload/f_auto,q_auto/bride_1_iqp9is";
+const BRIDE_URL = "https://res.cloudinary.com/dopbsr7o1/image/upload/f_auto,q_auto/brideeee_fcrkzx";
 const GROOM_URL = "https://res.cloudinary.com/dopbsr7o1/image/upload/f_auto,q_auto/groom_1_rbvvwz";
 
 // --- COMPONENTS ---
@@ -455,7 +455,7 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
                 alt="Bride" 
                 referrerPolicy="no-referrer"
                 loading="lazy"
-                className="relative w-64 h-64 md:w-80 md:h-80 object-cover rounded-full border-4 border-[#f3d1dc] shadow-2xl z-10"
+                className="relative w-64 h-64 md:w-80 md:h-80 object-cover object-top rounded-full border-4 border-[#f3d1dc] shadow-2xl z-10"
               />
               <div className="absolute -bottom-4 -right-4 bg-white p-3 rounded-full shadow-lg z-20">
                 <Heart className="text-[#f3d1dc] fill-[#f3d1dc]" size={24} />
@@ -477,13 +477,6 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
                 <p className="font-cinzel text-sm font-semibold text-[#7B3F32]">Mrs. Jyoti & Mr. Jitendra Khandelwal</p>
               </div>
 
-              <div className="w-12 h-px bg-[#f3d1dc] mx-auto" />
-
-              <div className="space-y-1">
-                <p className="font-cinzel text-[10px] tracking-[0.2em] uppercase opacity-100 text-black font-bold">Maternal Side</p>
-                <p className="font-cinzel text-xs text-black font-bold">Ramanarayan, Sanjay, Sandeep</p>
-                <p className="font-cinzel text-[10px] opacity-70 text-black font-bold">(Sohagpur, MP)</p>
-              </div>
             </div>
           </motion.div>
 
@@ -530,14 +523,8 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
               
               <div className="space-y-1">
                 <p className="font-cinzel text-[10px] tracking-[0.2em] uppercase opacity-100 text-black font-bold">Son of</p>
-                <p className="font-cinzel text-sm font-semibold text-[#7B3F32]">Mrs. Anita & Mr. Manoj Kumar Dangayach</p>
-              </div>
-
-              <div className="w-12 h-px bg-[#f3d1dc] mx-auto" />
-
-              <div className="space-y-1">
-                <p className="font-cinzel text-[10px] tracking-[0.2em] uppercase opacity-100 text-black font-bold">Family From</p>
-                <p className="font-cinzel text-sm font-semibold text-[#7B3F32]">Katras, Dhanbad</p>
+                <p className="font-cinzel text-sm font-semibold text-[#7B3F32]">Mrs. Anita Ji & Mr. Manoj Kumar Ji Dangayach</p>
+                <p className="font-cinzel text-xs text-[#7B3F32] font-semibold tracking-wide">(Katras, Dhanbad)</p>
               </div>
             </div>
           </motion.div>
@@ -559,7 +546,7 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
 
             <TimelineItem 
               index={0}
-              date="30 April 2026"
+              date="30th April 2026"
               events={[
                 { title: "Ganesh Pujan", time: "7:30 AM" },
                 { title: "Carnival", time: "9:00 AM" },
@@ -571,7 +558,7 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
             
             <TimelineItem 
               index={1}
-              date="1 May 2026"
+              date="1st May 2026"
               events={[
                 { title: "Barat Welcome", time: "11:30 AM" },
                 { title: "Wedding Ceremony", time: "12:15 PM" },
