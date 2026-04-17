@@ -29,8 +29,8 @@ import {
 // --- CONSTANTS ---
 const WEDDING_DATE = new Date("2026-05-01T12:15:00");
 const LOGO_URL = "https://lh3.googleusercontent.com/d/1e0BllrcGDvt7EprO3gIqMCkaDMuXJ16c";
-const BRIDE_URL = "https://lh3.googleusercontent.com/d/1raN8U5MuNrSYQRvL-QnAkOb0km0frqWS";
-const GROOM_URL = "https://lh3.googleusercontent.com/d/1AIDdr7cAYzLeO4swBepyt_5rqb4OgmjU";
+const BRIDE_URL = "https://res.cloudinary.com/dopbsr7o1/image/upload/f_auto,q_auto/bride_1_iqp9is";
+const GROOM_URL = "https://res.cloudinary.com/dopbsr7o1/image/upload/f_auto,q_auto/groom_1_rbvvwz";
 
 // --- COMPONENTS ---
 
@@ -378,7 +378,8 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7 }}
         >
-          WEDDING CEREMONY OF
+          WEDDING CEREMONY<br />
+          <span className="block text-lg md:text-xl mt-2 font-normal opacity-80">OF</span>
         </motion.h1>
         
         <motion.div 
@@ -624,23 +625,6 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
         </div>
       </section>
 
-      {/* Barat Info */}
-      <section className="py-24 px-4 bg-[#fff8f5]">
-        <div className="max-w-4xl mx-auto text-center space-y-16">
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="glass p-8 rounded-3xl border-[#d4a373]/10">
-              <h3 className="font-cinzel text-lg mb-4 tracking-widest uppercase opacity-100 text-black font-bold">Barat From</h3>
-              <p className="font-semibold text-lg text-[#3a3a3a]">Shri Manoj Kumar Ji Dangayach</p>
-              <p className="text-sm opacity-70 text-[#3a3a3a]">Katras, Dhanbad</p>
-            </div>
-            <div className="glass p-8 rounded-3xl border-[#d4a373]/10">
-              <h3 className="font-cinzel text-lg mb-4 tracking-widest uppercase opacity-100 text-black font-bold">Barat To</h3>
-              <p className="font-semibold text-lg text-[#3a3a3a]">Hotel Clarks Inn Suites</p>
-              <p className="text-sm opacity-70 text-[#3a3a3a]">Dhanbad</p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Family Section */}
       <section className="py-24 px-4 bg-[#fffaf7]">
@@ -651,16 +635,16 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
             <div className="glass p-8 rounded-3xl border-[#e8cfc1]/20">
               <h4 className="font-cinzel text-sm uppercase tracking-widest mb-6 opacity-100 text-black font-bold">Soliciting your presence</h4>
               <p className="leading-relaxed text-sm text-[#8b3103] font-bold">
-                Shyamsundar Ji, Lakshminarayan Ji, Radheshyam Ji, Pushkarraj Ji, Deepak Ji, Kamalkishore Ji Khandelwal & Family
+                Shyamsundar, Lakshminarayan, Radheshyam, Pushkarraj, Deepak, Kamalkishore Khandelwal & Family
               </p>
             </div>
             
             <div className="glass p-8 rounded-3xl border-[#e8cfc1]/20">
               <h4 className="font-cinzel text-sm uppercase tracking-widest mb-6 opacity-100 text-black font-bold">Awaiting to Welcome you</h4>
               <div className="space-y-4 text-sm text-[#8b3103] font-bold">
-                <p>Mrs. Jyoti & CA Jitendra Ji Khandelwal</p>
-                <p>Mrs. Sangeeta & Narendra Ji Khandelwal</p>
-                <p>Mrs. CA Anjali & CA Aditya Ji Khandelwal</p>
+                <p>Mrs. Jyoti & CA Jitendra Khandelwal</p>
+                <p>Mrs. Sangeeta & Narendra Khandelwal</p>
+                <p>Mrs. CA Anjali & CA Aditya Khandelwal</p>
                 <p>Ankita & Arpit</p>
               </div>
             </div>
