@@ -516,7 +516,7 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
             <div className="bg-white p-8 rounded-[2rem] space-y-4 border border-[#f3d1dc] shadow-xl">
               <div className="space-y-1">
                 <p className="font-cinzel text-[10px] tracking-[0.2em] uppercase opacity-100 text-black font-bold">Grandson of</p>
-                <p className="font-cinzel text-sm font-semibold text-[#7B3F32]">Late Mrs. Shardadevi & Late Mr. Ramchandra Dangayach</p>
+                <p className="font-cinzel text-sm font-semibold text-[#7B3F32]">Late Mrs. Shardadevi & Late Mr. Ramchandra Ji Dangayach</p>
               </div>
               
               <div className="w-12 h-px bg-[#f3d1dc] mx-auto" />
