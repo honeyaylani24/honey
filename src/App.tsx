@@ -467,14 +467,14 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
             <div className="bg-white p-8 rounded-[2rem] space-y-4 border border-[#f3d1dc] shadow-xl">
               <div className="space-y-1">
                 <p className="font-cinzel text-[10px] tracking-[0.2em] uppercase opacity-100 text-black font-bold">Granddaughter of</p>
-                <p className="font-cinzel text-sm font-semibold text-[#7B3F32]">Late Urmiladevi & Shyamsundar Khandelwal</p>
+                <p className="font-cinzel text-sm font-semibold text-[#7B3F32]">Late Mrs. Urmiladevi & Mr. Shyamsundar Khandelwal</p>
               </div>
               
               <div className="w-12 h-px bg-[#f3d1dc] mx-auto" />
               
               <div className="space-y-1">
                 <p className="font-cinzel text-[10px] tracking-[0.2em] uppercase opacity-100 text-black font-bold">Daughter of</p>
-                <p className="font-cinzel text-sm font-semibold text-[#7B3F32]">Jyoti & Jitendra Khandelwal</p>
+                <p className="font-cinzel text-sm font-semibold text-[#7B3F32]">Mrs. Jyoti & Mr. Jitendra Khandelwal</p>
               </div>
 
               <div className="w-12 h-px bg-[#f3d1dc] mx-auto" />
@@ -523,14 +523,14 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
             <div className="bg-white p-8 rounded-[2rem] space-y-4 border border-[#f3d1dc] shadow-xl">
               <div className="space-y-1">
                 <p className="font-cinzel text-[10px] tracking-[0.2em] uppercase opacity-100 text-black font-bold">Grandson of</p>
-                <p className="font-cinzel text-sm font-semibold text-[#7B3F32]">Late Shardadevi & Late Ramchandra Dangayach</p>
+                <p className="font-cinzel text-sm font-semibold text-[#7B3F32]">Late Mrs. Shardadevi & Late Mr. Ramchandra Dangayach</p>
               </div>
               
               <div className="w-12 h-px bg-[#f3d1dc] mx-auto" />
               
               <div className="space-y-1">
                 <p className="font-cinzel text-[10px] tracking-[0.2em] uppercase opacity-100 text-black font-bold">Son of</p>
-                <p className="font-cinzel text-sm font-semibold text-[#7B3F32]">Anita & Manoj Kumar Dangayach</p>
+                <p className="font-cinzel text-sm font-semibold text-[#7B3F32]">Mrs. Anita & Mr. Manoj Kumar Dangayach</p>
               </div>
 
               <div className="w-12 h-px bg-[#f3d1dc] mx-auto" />
@@ -591,7 +591,7 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
                 <div>
                   <h2 className="font-cinzel text-4xl mb-6 tracking-widest text-[#8b3103]">The Venue</h2>
                   <p className="text-2xl font-semibold mb-2 text-[#8b3103]">Hotel Clarks Inn Suites</p>
-                  <p className="text-lg text-[#8b3103]">Bank More, Dhanbad, Jharkhand</p>
+                  <p className="text-lg text-[#8b3103]">Dhanbad, Jharkhand</p>
                 </div>
                 
                 <div className="pt-4">
@@ -643,7 +643,7 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
               <h4 className="font-cinzel text-sm uppercase tracking-widest mb-6 opacity-100 text-black font-bold">Awaiting to Welcome you</h4>
               <div className="space-y-4 text-sm text-[#8b3103] font-bold">
                 <p>Mrs. Jyoti & CA Jitendra Khandelwal</p>
-                <p>Mrs. Sangeeta & Narendra Khandelwal</p>
+                <p>Mrs. Sangeeta & Mr. Narendra Khandelwal</p>
                 <p>Mrs. CA Anjali & CA Aditya Khandelwal</p>
                 <p>Ankita & Arpit</p>
               </div>
