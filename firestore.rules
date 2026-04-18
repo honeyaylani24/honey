@@ -5,7 +5,7 @@ service cloud.firestore {
     function isValidWish(data) {
       return data.name is string && data.name.size() > 0 && data.name.size() < 100 &&
              data.message is string && data.message.size() > 0 && data.message.size() < 1000 &&
-             data.createdAt is string;
+             (data.createdAt is string || data.createdAt is timestamp);
     }
 
     // Allow public read access to the gallery

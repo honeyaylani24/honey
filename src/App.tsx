@@ -712,7 +712,7 @@ const GuestBook = () => {
       await addDoc(collection(db, "wishes"), {
         name,
         message,
-        createdAt: new Date().toISOString(),
+        createdAt: serverTimestamp(),
       });
       setName("");
       setMessage("");
@@ -791,7 +791,9 @@ const GuestBook = () => {
                   <div className="flex justify-between items-center">
                     <p className="font-cinzel text-xs font-bold tracking-widest uppercase text-[#d4a373]">{wish.name}</p>
                     <p className="text-[10px] opacity-40 text-[#4a4a4a]">
-                      {new Date(wish.createdAt).toLocaleDateString()}
+                      {wish.createdAt && (typeof wish.createdAt === 'string' 
+                        ? new Date(wish.createdAt).toLocaleDateString()
+                        : wish.createdAt.toDate?.()?.toLocaleDateString() || 'Recently')}
                     </p>
                   </div>
                 </motion.div>
