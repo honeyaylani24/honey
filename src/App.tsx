@@ -642,7 +642,7 @@ const WeddingContent: React.FC<{ isPlaying: boolean, toggleMusic: () => void, au
               <p className="text-xs opacity-100 text-[#8b3103] font-bold">(Sohagpur, MP)</p>
               
               <div className="mt-8 pt-8 border-t border-[#e8cfc1]/30">
-                <h4 className="font-cinzel text-sm uppercase tracking-widest mb-2 opacity-100 text-black font-bold">Special</h4>
+                <h4 className="font-cinzel text-sm uppercase tracking-widest mb-2 opacity-100 text-black font-bold">Special Invite</h4>
                 <p className="font-vibes text-2xl text-[#8b3103] font-bold">Pahal Khandelwal</p>
               </div>
             </div>
